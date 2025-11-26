@@ -1,8 +1,14 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { sectors, getSectorBySlug, getAllSectorSlugs } from "@/lib/sectors";
+import { generateMetadata as generateMetadataHelper } from "@/lib/metadata";
+import {
+  StructuredDataScript,
+  getServiceSchema,
+  getBreadcrumbSchema,
+} from "@/lib/structured-data";
 
 interface SectorPageProps {
   params: Promise<{ slug: string }>;
@@ -19,15 +25,19 @@ export async function generateMetadata({
   const sector = getSectorBySlug(slug);
 
   if (!sector) {
-    return {
-      title: "Sector Not Found | Mullican Holdings",
-    };
+    return generateMetadataHelper({
+      title: "Sector Not Found",
+      description: "The requested sector page could not be found.",
+      url: `/sectors/${slug}`,
+      noindex: true,
+    });
   }
 
-  return {
-    title: `${sector.name} | Mullican Holdings`,
-    description: sector.description,
-  };
+  return generateMetadataHelper({
+    title: sector.name,
+    description: `${sector.tagline} ${sector.description}`,
+    url: `/sectors/${slug}`,
+  });
 }
 
 export default async function SectorPage({ params }: SectorPageProps) {
@@ -44,8 +54,24 @@ export default async function SectorPage({ params }: SectorPageProps) {
   const nextSector =
     currentIndex < sectors.length - 1 ? sectors[currentIndex + 1] : null;
 
+  const serviceSchema = getServiceSchema({
+    name: sector.name,
+    description: `${sector.tagline} ${sector.description}`,
+    url: `/sectors/${slug}`,
+    serviceType: "Investment Sector",
+  });
+
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Sectors", url: "/#sectors" },
+    { name: sector.name, url: `/sectors/${slug}` },
+  ]);
+
   return (
-    <main className="pt-20">
+    <>
+      <StructuredDataScript data={serviceSchema} />
+      <StructuredDataScript data={breadcrumbSchema} />
+      <main className="pt-20">
       {/* Hero Section */}
       <section className="py-section-sm md:py-section px-6 sm:px-8 relative">
         {/* Subtle decorative background */}
@@ -261,7 +287,8 @@ export default async function SectorPage({ params }: SectorPageProps) {
           </ScrollReveal>
         </div>
       </section>
-    </main>
+      </main>
+    </>
   );
 }
 

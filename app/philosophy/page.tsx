@@ -1,15 +1,23 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
+import { generateMetadata as generateMetadataHelper } from "@/lib/metadata";
+import {
+  StructuredDataScript,
+  getArticleSchema,
+  getBreadcrumbSchema,
+} from "@/lib/structured-data";
 
-export const metadata: Metadata = {
-  title: "The Archimedean Approach | Mullican Holdings",
+export const metadata: Metadata = generateMetadataHelper({
+  title: "The Archimedean Approach",
   description:
     "Our investment philosophy is rooted in first-principles thinking—breaking businesses down to fundamentals and rebuilding around what truly creates value.",
-};
+  url: "/philosophy",
+  type: "article",
+});
 
 const principles = [
   {
@@ -62,8 +70,22 @@ const quotes = [
 ];
 
 export default function PhilosophyPage() {
+  const articleSchema = getArticleSchema({
+    title: "The Archimedean Approach",
+    description:
+      "Our investment philosophy is rooted in first-principles thinking—breaking businesses down to fundamentals and rebuilding around what truly creates value.",
+    url: "/philosophy",
+  });
+
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "The Archimedean Approach", url: "/philosophy" },
+  ]);
+
   return (
     <>
+      <StructuredDataScript data={articleSchema} />
+      <StructuredDataScript data={breadcrumbSchema} />
       <Navigation />
       <main className="pt-20">
         {/* Hero Section */}
@@ -106,7 +128,7 @@ export default function PhilosophyPage() {
                 <div className="relative aspect-square max-w-md mx-auto w-full">
                   <Image
                     src="/achimedes2.svg"
-                    alt="Archimedes"
+                    alt="Archimedes of Syracuse, the ancient Greek mathematician and physicist whose lever principle inspires our investment philosophy"
                     fill
                     className="object-contain"
                     sizes="(max-width: 768px) 100vw, 50vw"

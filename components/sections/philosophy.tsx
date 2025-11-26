@@ -27,7 +27,7 @@ export function Philosophy() {
             <div className="relative aspect-square max-w-md mx-auto w-full">
               <Image
                 src="/achimedes2.svg"
-                alt="Archimedes"
+                alt="Archimedes of Syracuse, the ancient Greek mathematician and physicist whose lever principle inspires our investment philosophy"
                 fill
                 className="object-contain"
                 sizes="(max-width: 768px) 100vw, 50vw"

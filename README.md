@@ -22,6 +22,7 @@ Replace the placeholder SVG files in the `public` directory with your actual ass
 - `logo.svg` - Mullican "M" logo
 - `crest.svg` - Family crest (used in footer watermark)
 - `archimedes.svg` - Archimedes sketch/engraving (used in Philosophy section)
+- `og-image.png` - Social sharing image (recommended: 1200x630px) - for Open Graph and Twitter Card previews
 
 ## Build
 
@@ -29,6 +30,20 @@ Replace the placeholder SVG files in the `public` directory with your actual ass
 npm run build
 npm start
 ```
+
+## SEO Configuration
+
+The site includes comprehensive SEO optimizations:
+- Enhanced metadata with Open Graph and Twitter Cards
+- Structured data (JSON-LD) for Organization, WebSite, Articles, and Services
+- Automatic sitemap generation (`/sitemap.xml`)
+- Robots.txt configuration (`/robots.txt`)
+
+**Environment Variables:**
+- `NEXT_PUBLIC_SITE_URL` - Set to your production domain (e.g., `https://mullican.xyz`) for proper canonical URLs and structured data
+
+**Social Sharing Image:**
+- Create an `og-image.png` file (1200x630px recommended) in the `public` directory for optimal social media previews
 
 ## Project Structure
 

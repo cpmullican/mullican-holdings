@@ -1,6 +1,12 @@
-import type { Metadata } from "next";
 import { Playfair_Display, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
+import { generateMetadata as generateMetadataHelper } from "@/lib/metadata";
+import type { Metadata } from "next";
+import {
+  StructuredDataScript,
+  getOrganizationSchema,
+  getWebsiteSchema,
+} from "@/lib/structured-data";
 
 const playfair = Playfair_Display({
   variable: "--font-display",
@@ -15,11 +21,11 @@ const cormorant = Cormorant_Garamond({
   weight: ["300", "400", "500", "600", "700"],
 });
 
-export const metadata: Metadata = {
+export const metadata: Metadata = generateMetadataHelper({
   title: "Mullican Holdings",
   description: "A private holding company that acquires and operates enduring businesses through an Archimedean approach.",
-  keywords: ["private holding company", "business acquisition", "long-term investment", "enduring businesses"],
-};
+  url: "/",
+});
 
 export default function RootLayout({
   children,
@@ -29,6 +35,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${playfair.variable} ${cormorant.variable}`}>
       <body className="font-serif">
+        <StructuredDataScript data={getOrganizationSchema()} />
+        <StructuredDataScript data={getWebsiteSchema()} />
         {children}
       </body>
     </html>
