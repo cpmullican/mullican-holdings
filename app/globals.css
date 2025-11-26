@@ -1,0 +1,141 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-ivory text-charcoal antialiased;
+    position: relative;
+    font-feature-settings: "onum" 1, "liga" 1;
+  }
+
+  /* Subtle paper grain texture overlay */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  }
+}
+
+@layer components {
+  /* Classical section divider */
+  .section-divider {
+    @apply relative flex items-center justify-center py-8;
+  }
+
+  .section-divider::before,
+  .section-divider::after {
+    content: "";
+    @apply flex-1 h-px bg-charcoal/10;
+  }
+
+  .section-divider::before {
+    @apply mr-6;
+  }
+
+  .section-divider::after {
+    @apply ml-6;
+  }
+
+  .section-divider-ornament {
+    @apply text-charcoal/20 text-lg;
+  }
+
+  /* Scroll reveal animation */
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Staggered animation delays */
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+  .reveal-delay-5 { transition-delay: 0.5s; }
+  .reveal-delay-6 { transition-delay: 0.6s; }
+
+  /* Classical card styling */
+  .classical-card {
+    @apply relative bg-ivory border border-charcoal/10 transition-all duration-300 ease-out;
+  }
+
+  .classical-card::before {
+    content: "";
+    @apply absolute inset-[3px] border border-charcoal/5 pointer-events-none transition-all duration-300;
+  }
+
+  .classical-card:hover {
+    @apply shadow-sm;
+    transform: translateY(-2px);
+    border-color: rgba(201, 169, 98, 0.3); /* gold/30 */
+  }
+
+  .classical-card:hover::before {
+    @apply border-charcoal/10;
+  }
+
+  /* Decorative frame */
+  .decorative-frame {
+    @apply relative;
+  }
+
+  .decorative-frame::before {
+    content: "";
+    @apply absolute -inset-4 border border-charcoal/5 pointer-events-none;
+  }
+
+  /* Cream section with subtle gradient overlay */
+  .bg-cream {
+    position: relative;
+  }
+
+  .bg-cream::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      rgba(44, 44, 44, 0.015) 0%,
+      transparent 8%,
+      transparent 92%,
+      rgba(44, 44, 44, 0.015) 100%
+    );
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .font-display {
+    font-family: var(--font-display), serif;
+  }
+
+  .text-small-caps {
+    font-variant: small-caps;
+    letter-spacing: 0.05em;
+  }
+
+  .oldstyle-nums {
+    font-feature-settings: "onum" 1;
+  }
+}
+
