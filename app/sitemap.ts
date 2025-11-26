@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 import { getAllSectorSlugs } from "@/lib/sectors";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://mullican.xyz";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://mullican.co";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = siteUrl;

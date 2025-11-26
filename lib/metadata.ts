@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://mullican.xyz";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://mullican.co";
 const siteName = "Mullican Holdings";
 const defaultDescription =
   "A private holding company that acquires and operates enduring businesses through an Archimedean approach.";
